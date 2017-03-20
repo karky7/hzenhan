@@ -1,0 +1,6 @@
+.*
+!.gitignore
+cabal-dev
+dist
+*.hi
+*.o
