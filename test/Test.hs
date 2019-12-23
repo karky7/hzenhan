@@ -153,6 +153,8 @@ main = do
   verboseCheck (prop_idempontent_zkana)
   verboseCheck (prop_idempontent_hasciidigit)
   verboseCheck (prop_idempontent_zasciidigit)
+  verboseCheck (prop_idempontent_isallzenkana)
+  verboseCheck (prop_idempontent_isallhankana)
   putStrLn $ toString $ z2h [Kana, Digit, Ascii] "Ａ＆ｍ　５パス" "ｗＨ％Ｏ＄ｇＵ　ＣｙＹ７＝タラバェハパマスヅビゼーピダヨメ」オツフタュプ｜＆ｄＨＴＹＡｆＤＥＵ￥ｘ￥Ｎ￥ｊＢｍｊｚ％％＊Ｐｊｑ４ｗＡｐ］ｑ　Ｘ｜ｑ５ＷＲｇス１ｇｉ＞マＷＪ　：？＾＾Ｗ‘］ｂｆ「ツディゴパッテエプイバヴロリセォヴテｐＺＣｐＶｖ．ｚ"
 
 prop_idempontent_hkana :: Hkana -> Bool
@@ -167,6 +169,12 @@ prop_idempontent_hasciidigit (HAsciiDigit t) = z2h [Kana, Digit, Ascii] "" (h2z 
 
 prop_idempontent_zasciidigit :: ZAsciiDigit -> Bool
 prop_idempontent_zasciidigit (ZAsciiDigit t) = h2z [Kana, Digit, Ascii] "" (z2h [Kana, Digit, Ascii] "" t) == t
+
+prop_idempontent_isallzenkana :: Zkana -> Bool
+prop_idempontent_isallzenkana (Zkana t) = isAllZenKana t == True
+
+prop_idempontent_isallhankana :: Hkana -> Bool
+prop_idempontent_isallhankana (Hkana t) = isAllHanKana t == True
 
 zconcat :: [T.Text] -> T.Text
 zconcat = T.concat . zconcat'

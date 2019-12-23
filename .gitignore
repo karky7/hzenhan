@@ -4,3 +4,4 @@ cabal-dev
 dist
 *.hi
 *.o
+stack.yaml.lock

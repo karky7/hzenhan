@@ -39,8 +39,11 @@ code or bug reports:
 {-# LANGUAGE OverloadedStrings #-}
 
 module Text.Zenhan
-  (z2h
-  ,h2z
+  (
+    z2h
+  , h2z
+  , isAllZenKana
+  , isAllHanKana
   , toString
   , Mode(..)
   ) where
@@ -67,6 +70,18 @@ h2z ::
   -> T.Text -- ^ Characters to be converted
   -> T.Text -- ^ Result
 h2z mode ignore text = T.concat $ map (hzTrans mode (hconvAry ignore)) (hconvAry text)
+
+-- | Check Full-width Japanese character zen kana, return True if all text is Zen Kana
+isAllZenKana ::
+     T.Text -- ^ The text to be checked
+  -> Bool   -- ^ Result
+isAllZenKana = T.all (flip elem (T.unpack $ T.concat $ z_kana))
+
+-- | Check Full-width Japanese character zen kana, return True if all text is Hen Kana
+isAllHanKana ::
+     T.Text -- ^ The text to be checked
+  -> Bool   -- ^ Result
+isAllHanKana = T.all (flip elem (T.unpack $ T.concat $ h_kana))
 
 -- | Convert to String
 toString :: T.Text -> String
