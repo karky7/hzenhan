@@ -31,5 +31,6 @@ Let's see an example.
     > main = do
     >   let h = h2z [Kana, Digit, Ascii] \"A\" \"ABCd\\\\｢｣ｱｲｳｴｵ123\"
     >       z = z2h [Kana, Digit, Ascii] \"Ｂエ\" h
+    >       r = isAllZenKana "アイウエオ"
     >   putStrLn $ toString h
     >   putStrLn $ toString z
