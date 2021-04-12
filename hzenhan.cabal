@@ -1,5 +1,5 @@
 name:                hzenhan
-version:             0.0.4
+version:             0.0.5
 synopsis:            Zenhan library for Haskell
 description:         Converter between Full-width Japanese and Half-width Japanese
 homepage:            https://github.com/karky7/hzenhan#readme
@@ -16,6 +16,7 @@ cabal-version:       >=1.10
 library
   hs-source-dirs:      src
   exposed-modules:     Text.Zenhan
+                       Text.Table.Chars
   build-depends:       base >= 4.7 && < 5, text, containers
   default-language:    Haskell2010
 

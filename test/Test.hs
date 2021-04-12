@@ -1,10 +1,11 @@
 {-# LANGUAGE OverloadedStrings #-}
 
 import Test.QuickCheck
-import Text.Zenhan
 import Control.Monad (liftM)
 import qualified Data.Text as T
 import qualified Data.Map as M
+import Text.Zenhan
+import Text.Table.Chars
 
 newtype Hkana = Hkana T.Text
 newtype Zkana = Zkana T.Text
@@ -61,92 +62,6 @@ randomIgnore = Ignore `liftM` T.concat `liftM` listOf (elements ignore)
 ignore :: [T.Text]
 ignore = h_kana ++ z_kana ++ h_asciidigit ++ z_asciidigit
 
-h_kana :: [T.Text]
-h_kana = [ "ｱ", "ｲ", "ｳ", "ｴ", "ｵ",
-           "ｶ", "ｷ", "ｸ", "ｹ", "ｺ",
-           "ｻ", "ｼ", "ｽ", "ｾ", "ｿ",
-           "ﾀ", "ﾁ", "ﾂ", "ﾃ", "ﾄ",
-           "ﾅ", "ﾆ", "ﾇ", "ﾈ", "ﾉ",
-           "ﾊ", "ﾋ", "ﾌ", "ﾍ", "ﾎ",
-           "ﾏ", "ﾐ", "ﾑ", "ﾒ", "ﾓ",
-           "ﾔ", "ﾕ", "ﾖ",
-           "ﾗ", "ﾘ", "ﾙ", "ﾚ", "ﾛ",
-           "ﾜ", "ｦ", "ﾝ",
-           "ｧ", "ｨ", "ｩ", "ｪ", "ｫ",
-           "ｯ", "ｬ", "ｭ", "ｮ" ,
-           "ｳﾞ",
-           "ｶﾞ", "ｷﾞ", "ｸﾞ", "ｹﾞ", "ｺﾞ",
-           "ｻﾞ", "ｼﾞ", "ｽﾞ", "ｾﾞ", "ｿﾞ",
-           "ﾀﾞ", "ﾁﾞ", "ﾂﾞ", "ﾃﾞ", "ﾄﾞ",
-           "ﾊﾞ", "ﾋﾞ", "ﾌﾞ", "ﾍﾞ", "ﾎﾞ",
-           "ﾊﾟ", "ﾋﾟ", "ﾌﾟ", "ﾍﾟ", "ﾎﾟ",
-           "｡", "､", "･", "ﾞ", "ﾟ", "｢", "｣", "ｰ" ]
-
-z_kana :: [T.Text]
-z_kana = [ "ア", "イ", "ウ", "エ", "オ",
-           "カ", "キ", "ク", "ケ", "コ",
-           "サ", "シ", "ス", "セ", "ソ",
-           "タ", "チ", "ツ", "テ", "ト",
-           "ナ", "ニ", "ヌ", "ネ", "ノ",
-           "ハ", "ヒ", "フ", "ヘ", "ホ",
-           "マ", "ミ", "ム", "メ", "モ",
-           "ヤ", "ユ", "ヨ",
-           "ラ", "リ", "ル", "レ", "ロ",
-           "ワ", "ヲ", "ン",
-           "ァ", "ィ", "ゥ", "ェ", "ォ",
-           "ッ", "ャ", "ュ", "ョ",
-           "ヴ",
-           "ガ", "ギ", "グ", "ゲ", "ゴ",
-           "ザ", "ジ", "ズ", "ゼ", "ゾ",
-           "ダ", "ヂ", "ヅ", "デ", "ド",
-           "バ", "ビ", "ブ", "ベ", "ボ",
-           "パ", "ピ", "プ", "ペ", "ポ",
-           "。", "、", "・", "゛", "゜", "「", "」", "ー" ]
-
-h_asciidigit :: [T.Text]
-h_asciidigit = h_ascii ++ h_digit
-
-h_ascii :: [T.Text]
-h_ascii = [ "a", "b", "c", "d", "e", "f", "g", "h", "i",
-            "j", "k", "l", "m", "n", "o", "p", "q", "r",
-            "s", "t", "u", "v", "w", "x", "y", "z",
-            "A", "B", "C", "D", "E", "F", "G", "H", "I",
-            "J", "K", "L", "M", "N", "O", "P", "Q", "R",
-            "S", "T", "U", "V", "W", "X", "Y", "Z",
-            "!", "\"", "#", "$", "%", "&", "'", "(", ")",
-            "*", "+", ",", "-", ".", "/", ":", ";", "<",
-            "=", ">", "?", "@", "[", "\\", "]", "^", "_",
-            "`", "{", "|", "}", "~", " " ]
-
-h_digit :: [T.Text]
-h_digit = [ "0", "1", "2", "3", "4", "5", "6", "7", "8", "9" ]
-  
-z_asciidigit :: [T.Text]
-z_asciidigit = z_ascii ++ z_digit
-
-z_ascii :: [T.Text]
-z_ascii = [ "ａ", "ｂ", "ｃ", "ｄ", "ｅ", "ｆ", "ｇ", "ｈ", "ｉ",
-            "ｊ", "ｋ", "ｌ", "ｍ", "ｎ", "ｏ", "ｐ", "ｑ", "ｒ",
-            "ｓ", "ｔ", "ｕ", "ｖ", "ｗ", "ｘ", "ｙ", "ｚ",
-            "Ａ", "Ｂ", "Ｃ", "Ｄ", "Ｅ", "Ｆ", "Ｇ", "Ｈ", "Ｉ",
-            "Ｊ", "Ｋ", "Ｌ", "Ｍ", "Ｎ", "Ｏ", "Ｐ", "Ｑ", "Ｒ",
-            "Ｓ", "Ｔ", "Ｕ", "Ｖ", "Ｗ", "Ｘ", "Ｙ", "Ｚ",
-            "！", "”", "＃", "＄", "％", "＆", "’", "（", "）",
-            "＊", "＋", "，", "−", "．", "／", "：", "；", "＜",
-            "＝", "＞", "？", "＠", "［", "￥", "］", "＾", "＿",
-            "‘", "｛", "｜", "｝", "〜", "　" ]
-
-z_digit :: [T.Text]
-z_digit = [ "０", "１", "２", "３", "４", "５", "６", "７", "８", "９" ]
-
-h_kana_d :: M.Map T.Text T.Text
-h_kana_d = M.fromList [ ("ウ゛", "ヴ"),
-             ("カ゛", "ガ"), ("キ゛", "ギ"), ("ク゛", "グ"), ("ケ゛", "ゲ"), ("コ゛", "ゴ"),
-             ("サ゛", "ザ"), ("シ゛", "ジ"), ("ス゛", "ズ"), ("セ゛", "ゼ"), ("ソ゛", "ゾ"),
-             ("タ゛", "ダ"), ("チ゛", "ヂ"), ("ツ゛", "ヅ"), ("テ゛", "デ"), ("ト゛", "ド"),
-             ("ハ゛", "バ"), ("ヒ゛", "ビ"), ("フ゛", "ブ"), ("ヘ゛", "ベ"), ("ホ゛", "ボ"),
-             ("ハ゜", "パ"), ("ヒ゜", "ピ"), ("フ゜", "プ"), ("ヘ゜", "ペ"), ("ホ゜", "ポ") ]
-
 main :: IO()
 main = do
   verboseCheck (prop_idempontent_hkana)
@@ -155,6 +70,8 @@ main = do
   verboseCheck (prop_idempontent_zasciidigit)
   verboseCheck (prop_idempontent_isallzenkana)
   verboseCheck (prop_idempontent_isallhankana)
+  verboseCheck (prop_idempontent_isallzen)
+  verboseCheck (prop_idempontent_isallzen')
   putStrLn $ toString $ z2h [Kana, Digit, Ascii] "Ａ＆ｍ　５パス" "ｗＨ％Ｏ＄ｇＵ　ＣｙＹ７＝タラバェハパマスヅビゼーピダヨメ」オツフタュプ｜＆ｄＨＴＹＡｆＤＥＵ￥ｘ￥Ｎ￥ｊＢｍｊｚ％％＊Ｐｊｑ４ｗＡｐ］ｑ　Ｘ｜ｑ５ＷＲｇス１ｇｉ＞マＷＪ　：？＾＾Ｗ‘］ｂｆ「ツディゴパッテエプイバヴロリセォヴテｐＺＣｐＶｖ．ｚ"
 
 prop_idempontent_hkana :: Hkana -> Bool
@@ -176,12 +93,17 @@ prop_idempontent_isallzenkana (Zkana t) = isAllZenKana t == True
 prop_idempontent_isallhankana :: Hkana -> Bool
 prop_idempontent_isallhankana (Hkana t) = isAllHanKana t == True
 
+prop_idempontent_isallzen :: Bool
+prop_idempontent_isallzen = isAllZen "本日は晴天なり" == True
+
+prop_idempontent_isallzen' :: Bool
+prop_idempontent_isallzen' = isAllZen "本日ﾊ晴天なり" == False
+
 zconcat :: [T.Text] -> T.Text
 zconcat = T.concat . zconcat'
   where
-    zconcat' (x:y:xs) =case M.lookup (T.concat [x, y]) h_kana_d of
+    zconcat' (x:y:xs) =case M.lookup (T.concat [x, y]) h_kana_d_map of
                          Just v -> v : zconcat' xs
                          Nothing -> x : zconcat' (y:xs)
     zconcat' (x:xs) = x : zconcat' xs
     zconcat' [] = []
-
